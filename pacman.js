@@ -2,7 +2,7 @@
 let score = 0;
 let lives = 2;
 let powerPellets = 4;
-
+let ghostsEaten = 0;
 
 // Define your ghosts here
 const inky = {
@@ -61,10 +61,10 @@ function displayMenu() {
   console.log('\n\nSelect Option:\n');  // each \n creates a new line
   console.log('(d) Eat Dot');
   console.log('(p) Eat Power-Pellet');
-  console.log('(1) Eat Inky');
-  console.log('(2) Eat Blinky');
-  console.log('(3) Eat Pinky');
-  console.log('(4) Eat Clyde');
+  console.log(`(1) Eat Inky ${inky.edible ? '(edible)' : '(inedible)'}`);
+  console.log(`(2) Eat Blinky ${blinky.edible ? '(edible)' : '(inedible)'}`);
+  console.log(`(3) Eat Pinky ${pinky.edible ? '(edible)' : '(inedible)'}`);
+  console.log(`(4) Eat Clyde ${clyde.edible ? '(edible)' : '(inedible)'}`);
   console.log('(q) Quit');
 }
 
@@ -123,11 +123,29 @@ function processInput(key) {
     case 'd':
       eatDot();
       break;
+    case 'p':
+      if ((powerPellets > 0) && (ghostsEaten === 0)) {
+        eatPowerPellet();
+      } else if (powerPellets <= 0) {
+        console.log('\nNo Power Pellets left!');
+      }
+      break;
+    case '1':
+      eatGhost(inky);
+      break;
+    case '2':
+      eatGhost(blinky);
+      break;
+    case '3':
+      eatGhost(pinky);
+      break;
+    case '4':
+      eatGhost(clyde);
+      break;
     default:
       console.log('\nInvalid Command!');
   }
 }
-
 
 //
 // YOU PROBABLY DON'T WANT TO CHANGE CODE BELOW THIS LINE
