@@ -76,6 +76,31 @@ function displayPrompt() {
 function eatDot() {
   console.log('\nChomp!');
   score += 10;
+
+
+function eatGhost(ghost) {
+  if(ghost.edible === false) {
+    lives --;
+    console.log (`\n${ghost.name} eats Pacman. The ghost's colour is ${ghost.colour} if you were wondering.`);
+  } else {
+    console.log (`\nYou ate ${ghost.name}! Their character was very ${ghost.character}.`);
+    ghostsEaten ++;
+    if (ghostsEaten === 1) {
+      score += 200;
+    } else if (ghostsEaten === 2) {
+      score += 400;
+    } else if (ghostsEaten === 3) {
+      score += 800;
+    } else if (ghostsEaten > 3) {
+      score += 1600;
+      ghostsEaten = 0;
+    }
+    ghost.edible = false;
+  }
+  if (lives < 0) {
+    console.log("Game Over")
+    process.exist();
+  }
 }
 
 
